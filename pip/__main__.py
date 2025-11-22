@@ -63,7 +63,6 @@ print("Plot guardado como 'weather_plot.png'.")
 
     print(f"Tiempo total (install + exec): {total_time:.2f} segundos")
     shutil.rmtree(venv_dir)
-    shutil.rmtree("weather_plot.png")
 
 
 if __name__ == "__main__":
