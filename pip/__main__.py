@@ -41,6 +41,7 @@ plt.savefig('weather_plot.png')
 print("Plot guardado como 'weather_plot.png'.")
 """
 
+
 def main() -> None:
     venv_dir = ".venv"
     venv.create(venv_dir, with_pip=True)
@@ -52,7 +53,17 @@ def main() -> None:
 
     start_time = time.time()
 
-    subprocess.check_call([venv_python, "-m", "pip", "install", "-r", "requirements.txt", "--no-cache-dir"])
+    subprocess.check_call(
+        [
+            venv_python,
+            "-m",
+            "pip",
+            "install",
+            "-r",
+            "requirements.txt",
+            "--no-cache-dir",
+        ]
+    )
     subprocess.check_call([venv_python, "-m", "pre_commit", "run", "--all-files"])
 
     subprocess.check_call([venv_python, "-c", CODE_TO_RUN])
