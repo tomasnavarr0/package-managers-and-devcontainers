@@ -39,6 +39,9 @@ plt.savefig('weather_plot.png')
 print("Plot guardado como 'weather_plot.png'.")
 """
 
+TEMP_SCRIPT_NAME = "temp_runner_script.py"
+
+
 def main() -> None:
     venv_dir = ".venv"
     temp_cache_dir = ".temp_poetry_cache"
@@ -46,11 +49,14 @@ def main() -> None:
     os.environ["POETRY_VIRTUALENVS_IN_PROJECT"] = "true"
     os.environ["POETRY_CACHE_DIR"] = temp_cache_dir
 
+    with open(TEMP_SCRIPT_NAME, "w", encoding="utf-8") as f:
+        f.write(CODE_TO_RUN)
+
     start_time = time.time()
 
     subprocess.check_call(["poetry", "install", "--no-root"])
-    subprocess.run(["poetry", "run", "pre-commit", "run", "--all-files"])
-    subprocess.check_call(["poetry", "run", "python", "-c", CODE_TO_RUN])
+    subprocess.run(["poetry", "run", "pre-commit", "run", "--all-files"], check=False)
+    subprocess.check_call(["poetry", "run", "python", TEMP_SCRIPT_NAME])
 
     end_time = time.time()
     total_time = end_time - start_time
@@ -59,11 +65,15 @@ def main() -> None:
 
     if os.path.exists(venv_dir):
         shutil.rmtree(venv_dir)
-    
+
     if os.path.exists(temp_cache_dir):
         shutil.rmtree(temp_cache_dir)
 
+    if os.path.exists(TEMP_SCRIPT_NAME):
+        os.remove(TEMP_SCRIPT_NAME)
+
     return total_time
+
 
 if __name__ == "__main__":
     main()

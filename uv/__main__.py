@@ -39,11 +39,11 @@ plt.savefig('weather_plot.png')
 print("Plot guardado como 'weather_plot.png'.")
 """
 
+
 def main() -> None:
     start_time = time.time()
 
     subprocess.check_call(["uv", "sync", "--no-cache"])
-
     subprocess.run(["uv", "run", "pre-commit", "run", "--all-files"], check=False)
     subprocess.check_call(["uv", "run", "python", "-c", CODE_TO_RUN])
 
@@ -56,6 +56,7 @@ def main() -> None:
         shutil.rmtree(".venv")
 
     return total_time
+
 
 if __name__ == "__main__":
     main()

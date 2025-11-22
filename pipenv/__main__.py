@@ -43,7 +43,7 @@ print("Plot guardado como 'weather_plot.png'.")
 def main() -> None:
     os.environ["PIPENV_VENV_IN_PROJECT"] = "1"
     os.environ["PIP_NO_CACHE_DIR"] = "1"
-    
+
     start_time = time.time()
 
     subprocess.check_call(["pipenv", "install", "--dev"])

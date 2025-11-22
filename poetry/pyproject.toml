@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "poetry"
+version = "0.1.0"
+description = ""
+authors = ["tomy <tomas.navarro200013@gmail.com>"]
+readme = "README.md"
+package-mode = false
+license = "" 
+
+[tool.poetry.dependencies]
+python = ">=3.12"
+matplotlib = "3.9.2"
+numpy = "2.1.2"
+pandas = "2.2.3"
+pre-commit = "4.4.0"
+requests = "2.32.3"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+max-line-length = 150
+ignore = ["E501"]
+
+[tool.black]
+line-length = 150
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+ignore_missing_imports = true
