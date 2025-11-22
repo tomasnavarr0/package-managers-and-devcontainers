@@ -5,22 +5,7 @@ import time
 import venv
 import shutil
 
-
-def main() -> None:
-    venv_dir = ".venv"
-    venv.create(venv_dir, with_pip=True)
-
-    if sys.platform == "win32":
-        venv_python = os.path.join(venv_dir, "Scripts", "python.exe")
-    else:
-        venv_python = os.path.join(venv_dir, "bin", "python")
-
-    start_time = time.time()
-
-    subprocess.check_call([venv_python, "-m", "pip", "install", "-r", "requirements.txt", "--no-cache-dir"])
-    subprocess.check_call([venv_python, "-m", "pre_commit", "run", "--all-files"])
-
-    code_to_run = """
+CODE_TO_RUN: str = """
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -56,13 +41,28 @@ plt.savefig('weather_plot.png')
 print("Plot guardado como 'weather_plot.png'.")
 """
 
-    subprocess.check_call([venv_python, "-c", code_to_run])
+def main() -> None:
+    venv_dir = ".venv"
+    venv.create(venv_dir, with_pip=True)
+
+    if sys.platform == "win32":
+        venv_python = os.path.join(venv_dir, "Scripts", "python.exe")
+    else:
+        venv_python = os.path.join(venv_dir, "bin", "python")
+
+    start_time = time.time()
+
+    subprocess.check_call([venv_python, "-m", "pip", "install", "-r", "requirements.txt", "--no-cache-dir"])
+    subprocess.check_call([venv_python, "-m", "pre_commit", "run", "--all-files"])
+
+    subprocess.check_call([venv_python, "-c", CODE_TO_RUN])
 
     end_time = time.time()
     total_time = end_time - start_time
 
     print(f"Tiempo total (install + exec): {total_time:.2f} segundos")
     shutil.rmtree(venv_dir)
+    return total_time
 
 
 if __name__ == "__main__":
