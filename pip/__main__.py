@@ -64,7 +64,7 @@ def main() -> None:
             "--no-cache-dir",
         ]
     )
-    subprocess.check_call([venv_python, "-m", "pre_commit", "run", "--all-files"])
+    subprocess.run([venv_python, "-m", "pre_commit", "run", "--all-files"], check=False)
 
     subprocess.check_call([venv_python, "-c", CODE_TO_RUN])
 

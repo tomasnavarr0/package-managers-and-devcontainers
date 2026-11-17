@@ -1,4 +1,5 @@
 import os
+import sys
 import subprocess
 import time
 import shutil
@@ -54,6 +55,7 @@ def main() -> None:
 
     start_time = time.time()
 
+    subprocess.check_call(["poetry", "env", "use", sys.executable])
     subprocess.check_call(["poetry", "install", "--no-root"])
     subprocess.run(["poetry", "run", "pre-commit", "run", "--all-files"], check=False)
     subprocess.check_call(["poetry", "run", "python", TEMP_SCRIPT_NAME])

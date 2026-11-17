@@ -47,7 +47,7 @@ def main() -> None:
     start_time = time.time()
 
     subprocess.check_call(["pipenv", "install", "--dev"])
-    subprocess.check_call(["pipenv", "run", "pre-commit", "run", "--all-files"])
+    subprocess.run(["pipenv", "run", "pre-commit", "run", "--all-files"], check=False)
     subprocess.check_call(["pipenv", "run", "python", "-c", CODE_TO_RUN])
 
     end_time = time.time()
